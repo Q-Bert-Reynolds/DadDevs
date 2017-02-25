@@ -1,6 +1,3 @@
 [submodule "Assets/Paraphernalia"]
 	path = Assets/Paraphernalia
 	url = git@github.com:ShreveportArcade/Paraphernalia.git
-[submodule "Assets/PrettyPoly"]
-	path = Assets/PrettyPoly
-	url = git@github.com:ShreveportArcade/PrettyPoly.git
