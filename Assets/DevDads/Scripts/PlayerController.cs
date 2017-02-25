@@ -3,19 +3,24 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-
-    public GameObject player;
+    
     public float moveSpeed;
     public float slowDownSpeed;
     public float maxSpeed;
+    public float primaryFireRate;
+    public float secondaryFireRate;
     public float invisFramesTime;
-
     public int lives;
+    public MoveForward shotPrefab;
+    private Transform shotSpawn;
+
     private float _deltaInvisFrames;
     public float deltaInvisFrames {
         get { return _deltaInvisFrames; }
     }
     private Color originalColor;
+    private int floorMask;
+    private float deltaPrimaryFireRate = 0f;
 
     private Rigidbody rb;
     public Rigidbody body {
@@ -33,9 +38,17 @@ public class PlayerController : MonoBehaviour {
         movement = new Vector3(0, 0, 0);
         _deltaInvisFrames = 0;
         originalColor = GetComponent<Renderer>().material.color;
+        shotSpawn = transform.GetChild(0);
+        floorMask = LayerMask.GetMask("Ground");
     }
 	
 	void Update() {
+        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > primaryFireRate) {
+            deltaPrimaryFireRate = Time.time + primaryFireRate;
+            MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+            shot.transform.forward = shotSpawn.transform.forward;
+        }
+
         if (deltaInvisFrames > 0) {
             _deltaInvisFrames -= Time.deltaTime;
             if (deltaInvisFrames < 0)
@@ -48,7 +61,26 @@ public class PlayerController : MonoBehaviour {
             GetComponent<Renderer>().material.color = 
                 new Color(originalColor.r, originalColor.g, originalColor.b, 1);
         }
-        
+
+        // Create a ray from the mouse cursor on screen in the direction of the camera.
+        Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        // Create a RaycastHit variable to store information about what was hit by the ray.
+        RaycastHit floorHit;
+        // Perform the raycast and if it hits something on the floor layer...
+        if (Physics.Raycast(camRay, out floorHit, Mathf.Infinity, floorMask)) {
+            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
+            Vector3 playerToMouse = floorHit.point - transform.position;
+
+            // Ensure the vector is entirely along the floor plane.
+            playerToMouse.y = 0f;
+
+            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
+            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
+
+            // Set the player's rotation to this new rotation.
+            rb.MoveRotation(newRotation);
+        }
+
     }
 
 	void FixedUpdate () {
@@ -89,7 +121,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void die() {
-        Destroy(player.gameObject);
+        Destroy(this.gameObject);
     }
 
     float AngleBetweenTwoPoints(Vector3 a, Vector3 b) {

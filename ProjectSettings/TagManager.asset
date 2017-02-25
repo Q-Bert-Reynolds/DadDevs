@@ -6,6 +6,8 @@ TagManager:
   tags:
   - EnemyBullet
   - Building
+  - Enemy
+  - PlayerPrimaryBullet
   layers:
   - Default
   - TransparentFX
@@ -17,11 +19,11 @@ TagManager:
   - 
   - Player
   - OnlyPlayer
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground
+  - Buildings
+  - PlayerBullet
+  - Enemy
+  - EnemyBullet
   - 
   - 
   - 

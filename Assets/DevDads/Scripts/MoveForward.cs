@@ -6,8 +6,11 @@ using Paraphernalia.Utils;
 public class MoveForward : MonoBehaviour {
 
     public float speed;
-    public GameObject target;
-    public PlayerController player;
+
+    private Transform target;
+    private static PlayerController player;
+    private static GameController gameController;
+    public bool harmfulToPlayer;
 
     private Vector3 position;
 
@@ -15,29 +18,29 @@ public class MoveForward : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        if (player == null)
+            player = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
-        rb.transform.LookAt(target.transform);
-    }
-	
-	// Update is called once per frame
-	void Update () {
-        if (target != null && speed > 0) {
-            rb.velocity = rb.transform.forward * speed;
-        }
+        rb.velocity = rb.transform.forward * speed;
     }
 
     void OnTriggerEnter(Collider other) {
-        if (this.tag == "EnemyBullet") {
+        if (harmfulToPlayer) {
             if (other.gameObject.tag == "Player" && player.deltaInvisFrames == 0) {
                 if (player.deltaInvisFrames == 0) {
                     player.getHit();
                 }
                 Destroy(this.gameObject);
-            }                
-
-            if (other.gameObject.tag == "Building") {
-                Destroy(this.gameObject);
             }
+        } else {
+            if (other.gameObject.tag == "Enemy") {
+                Destroy(this.gameObject);
+                Destroy(other.gameObject);
+            }
+        }
+
+        if (other.gameObject.tag == "Building") {
+            Destroy(this.gameObject);
         }
     }
 
