@@ -53,6 +53,9 @@ ModelImporter:
     7400000: RobotBones|Idle
     7400002: RobotBones|Walk
     7400004: Robot|Walk
+    7400006: Idle
+    7400008: Walk
+    7400010: Strafe
     9500000: //RootNode
     13700000: Robot
   materials:
@@ -63,10 +66,9 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     motionNodeName: 
-    animationImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
-      human bone 'Head' not found\n"
+    animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
@@ -75,85 +77,14 @@ ModelImporter:
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
-    extraExposedTransformPaths: []
+    extraExposedTransformPaths:
+    - RobotBones/Root/Body
     clipAnimations:
     - serializedVersion: 16
-      name: RobotBones|Idle
-      takeName: RobotBones|Idle
+      name: Idle
+      takeName: Idle
       firstFrame: 0
       lastFrame: 1
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: Camera
-        weight: 1
-      - path: Lamp
-        weight: 1
-      - path: Robot
-        weight: 1
-      - path: RobotBones
-        weight: 1
-      - path: RobotBones/footLeftTarget
-        weight: 1
-      - path: RobotBones/footLeftTarget/footLeftTarget_end
-        weight: 1
-      - path: RobotBones/footRightTarget
-        weight: 1
-      - path: RobotBones/footRightTarget/footRightTarget_end
-        weight: 1
-      - path: RobotBones/Root
-        weight: 1
-      - path: RobotBones/Root/Body
-        weight: 1
-      - path: RobotBones/Root/Body/Body_end
-        weight: 1
-      - path: RobotBones/Root/hipLeft
-        weight: 1
-      - path: RobotBones/Root/hipLeft/upperLegLeft
-        weight: 1
-      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft
-        weight: 1
-      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft/footLeft
-        weight: 1
-      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft/footLeft/footLeft_end
-        weight: 1
-      - path: RobotBones/Root/hipRight
-        weight: 1
-      - path: RobotBones/Root/hipRight/upperLegRight
-        weight: 1
-      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight
-        weight: 1
-      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight
-        weight: 1
-      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight/footRight_end
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: RobotBones|Walk
-      takeName: RobotBones|Walk
-      firstFrame: 0
-      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -217,6 +148,136 @@ ModelImporter:
       - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight
         weight: 1
       - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight/footRight_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Walk
+      firstFrame: 0
+      lastFrame: 23
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Camera
+        weight: 1
+      - path: Lamp
+        weight: 1
+      - path: Robot
+        weight: 1
+      - path: RobotBones
+        weight: 1
+      - path: RobotBones/footLeftTarget
+        weight: 1
+      - path: RobotBones/footLeftTarget/footLeftTarget_end
+        weight: 1
+      - path: RobotBones/footRightTarget
+        weight: 1
+      - path: RobotBones/footRightTarget/footRightTarget_end
+        weight: 1
+      - path: RobotBones/Root
+        weight: 1
+      - path: RobotBones/Root/Body
+        weight: 1
+      - path: RobotBones/Root/Body/Body_end
+        weight: 1
+      - path: RobotBones/Root/hipLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft/footLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft/footLeft/footLeft_end
+        weight: 1
+      - path: RobotBones/Root/hipRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight/footRight_end
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Strafe
+      takeName: Strafe
+      firstFrame: 0
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: Robot
+        weight: 1
+      - path: RobotBones
+        weight: 1
+      - path: RobotBones/Root
+        weight: 1
+      - path: RobotBones/Root/Body
+        weight: 1
+      - path: RobotBones/Root/hipLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft
+        weight: 1
+      - path: RobotBones/Root/hipLeft/upperLegLeft/lowerLegLeft/footLeft
+        weight: 1
+      - path: RobotBones/Root/hipRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight
+        weight: 1
+      - path: RobotBones/Root/hipRight/upperLegRight/lowerLegRight/footRight
+        weight: 1
+      - path: RobotBones/footLeftTarget
+        weight: 1
+      - path: RobotBones/footRightTarget
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
