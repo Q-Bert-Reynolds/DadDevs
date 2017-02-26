@@ -8,12 +8,18 @@ using Paraphernalia.Utils;
     public float speed;
     private PlayerController player;
     public int scoreValue;
+    public int enemyType;
 
-    private float deltaWaitToShoot;   
-    private float deltaStartShot;
+    private float deltaWaitToShoot = 0;   
+    private float deltaStartShot = 0;
+    private float deltaWaitBtwnShots = 0;
+    private int shotsFired = 0;
     private GameController gameController;
+
     public float timeToWaitCharge;
     public float timeToWaitShot;
+    public float timeToWaitBtwnShots;
+    public float maxShots;
     public MoveForward shotPrefab;
 
     private Transform shotSpawn;
@@ -24,6 +30,9 @@ using Paraphernalia.Utils;
         rb = GetComponent<Rigidbody>();
         shooting = false;
         shotSpawn = transform.GetChild(0);
+
+        timeToWaitCharge = timeToWaitCharge + Random.Range(0f, 1f);
+
         if (player == null) {
             player = FindObjectOfType<PlayerController>();
         }
@@ -45,7 +54,7 @@ using Paraphernalia.Utils;
         }
     }
 
-        void FixedUpdate() {
+    void FixedUpdate() {
         if (player != null) {
             if (!shooting) {
                 deltaWaitToShoot += Time.deltaTime;
@@ -53,14 +62,27 @@ using Paraphernalia.Utils;
                     deltaWaitToShoot = 0;
                     shooting = true;
                 }
+
                 moveTowardsPlayer(player.gameObject);
+
             } else {
                 deltaStartShot += Time.deltaTime;
+
                 if (deltaStartShot > timeToWaitShot) {
-                    deltaStartShot = 0;
-                    shooting = false;
-                    MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
-                    shot.transform.forward = shotSpawn.transform.forward;
+                    deltaWaitBtwnShots += Time.deltaTime;
+
+                    if (deltaWaitBtwnShots >= timeToWaitBtwnShots) {
+                        SpawnBullets(enemyType);
+                        shotsFired += 1;
+                        deltaWaitBtwnShots -= timeToWaitBtwnShots;
+                    }
+
+                    if (shotsFired >= maxShots) {
+                        deltaWaitBtwnShots = 0;
+                        deltaStartShot = 0;
+                        shotsFired = 0;
+                        shooting = false;                        
+                    }                    
                 }
             }
         }        
@@ -77,5 +99,20 @@ using Paraphernalia.Utils;
     public void Die() {
         gameController.AddScore(scoreValue);
         Destroy(this.gameObject);
+    }
+
+    void SpawnBullets(int patternNumber) {
+        if (patternNumber == 0) {
+            MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+            shot.transform.forward = shotSpawn.transform.forward;
+        } else if (patternNumber == 1) {
+            for (int i = 0; i < 5; i++) {
+                MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+                shot.speed = shot.speed * 0.5f;
+                Vector3 originalAngle = shot.transform.forward;
+                Quaternion spreadAngle = Quaternion.AngleAxis((i - 2)*20, new Vector3(0, 1, 0));
+                shot.transform.forward = spreadAngle * originalAngle;
+            }            
+        }  
     }
 }
