@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4539503736246276}
   - component: {fileID: 95826623594385824}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 54614817414472282}
   - component: {fileID: 135457135398735728}
   - component: {fileID: 114509983872434796}
-  m_Layer: 8
+  m_Layer: 13
   m_Name: Follower1
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -53,7 +53,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4710004366426558}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: RotationPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -68,7 +68,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4171002605961498}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: EnemyBulletSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +84,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4332278211750448}
   - component: {fileID: 137299286101187644}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Robot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4443236298950500}
   - component: {fileID: 136544813452832382}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4997292141975782}
   - component: {fileID: 33378300517457524}
   - component: {fileID: 23644504580072458}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: cat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -157,7 +157,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1105186405171288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.58, y: 0, z: 4.6}
+  m_LocalPosition: {x: -8.059999, y: 0, z: 5.522394}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4539503736246276}
