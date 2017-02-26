@@ -36,8 +36,8 @@ public class BulletController : MonoBehaviour {
                 } else {
                     if (player.deltaInvisFrames == 0) {
                         player.getHit();
-                    }
-                    Destroy(this.gameObject);
+                        Destroy(this.gameObject);
+                    }                    
                 }                
             }
         } else {            

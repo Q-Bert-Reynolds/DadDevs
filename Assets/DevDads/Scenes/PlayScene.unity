@@ -2927,6 +2927,21 @@ Prefab:
       propertyPath: forceShield
       value: 
       objectReference: {fileID: 853944460}
+    - target: {fileID: 114823754114113066, guid: bad48740b0bf6ae4b952fc94c485898f,
+        type: 2}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 01cc73a5a3af243ffa0a0b26840e1860, type: 2}
+    - target: {fileID: 114823754114113066, guid: bad48740b0bf6ae4b952fc94c485898f,
+        type: 2}
+      propertyPath: glassMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 85aed8884580d4a89a10d19babc2ebd4, type: 2}
+    - target: {fileID: 114823754114113066, guid: bad48740b0bf6ae4b952fc94c485898f,
+        type: 2}
+      propertyPath: dogMaterial
+      value: 
+      objectReference: {fileID: 2100000, guid: 85aed8884580d4a89a10d19babc2ebd4, type: 2}
     m_RemovedComponents:
     - {fileID: 114341408507747932, guid: bad48740b0bf6ae4b952fc94c485898f, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: bad48740b0bf6ae4b952fc94c485898f, type: 2}

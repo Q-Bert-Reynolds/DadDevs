@@ -23,8 +23,12 @@ public class PlayerController : MonoBehaviour {
     public float maxForceFieldTime;
     public GameObject forceShield;
     public string onDestroySound = "laserHit";
+    public Material material;
+    public Material dogMaterial;
 
     private Vector3 targetForward;
+    private Material originalMaterial;
+    private Material originalDogMaterial;
 
     public float maxEnergy;
     public float energy;
@@ -66,6 +70,8 @@ public class PlayerController : MonoBehaviour {
         movement = new Vector3(0, 0, 0);
         _deltaInvisFrames = 0;
         // originalColor = GetComponent<Renderer>().material.color;
+        originalMaterial = material;
+        originalDogMaterial = dogMaterial;
         floorMask = LayerMask.GetMask("Ground");
         maxEnergy = 100;
 
@@ -91,9 +97,13 @@ public class PlayerController : MonoBehaviour {
                 
             float alpha = deltaInvisFrames*2;
             while (alpha > 1) alpha--;
+            material.color = new Color(originalMaterial.color.r, originalMaterial.color.g, originalMaterial.color.b, alpha);
+            dogMaterial.color = new Color(originalDogMaterial.color.r, originalDogMaterial.color.g, originalDogMaterial.color.b, alpha);
             // GetComponent<Renderer>().material.color = 
             //     new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
         } else {
+            material.color = new Color(originalMaterial.color.r, originalMaterial.color.g, originalMaterial.color.b, 1);
+            dogMaterial.color = new Color(originalDogMaterial.color.r, originalDogMaterial.color.g, originalDogMaterial.color.b, 1);
             // GetComponent<Renderer>().material.color = 
             //     new Color(originalColor.r, originalColor.g, originalColor.b, 1);
         }
