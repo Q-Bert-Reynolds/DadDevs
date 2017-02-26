@@ -25,24 +25,33 @@ public class SpawnerEnemy : MonoBehaviour {
 	void Update () {
         deltaSpawnNewEnemy += Time.deltaTime;
 
-        for (int i = enemyList.Count - 1; i > 0; i--) {
-            if (enemyList[i] == null)
-                enemyList.Remove(enemyList[i]);
-        }
+        PruneList();
 
         if (deltaSpawnNewEnemy >= timeToSpawnNewEnemy && enemyList.Count < maxEnemiesAliveAtOnce) {
             deltaSpawnNewEnemy = 0;
             timeToSpawnNewEnemy = originalTimeToSpawnNewEnemy + Random.Range(0, 2);
 
-            int whichMobToSpawn = 0;
-            if (Random.value > 0.9f) {
-                whichMobToSpawn = 1;
-            } else {
-                whichMobToSpawn = 0;
-            }
-            EnemyMover enemy = Instantiate(enemyPrefab[whichMobToSpawn], rb.position, rb.rotation) as EnemyMover;
-            enemy.transform.forward = this.transform.forward;
-            enemyList.Add(enemy);
+            SpawnNewEnemy();
         }        
+    }
+
+    void SpawnNewEnemy() {
+        int whichMobToSpawn = 0;
+        if (Random.value > 0.9f) {
+            whichMobToSpawn = 1;
+        } else {
+            whichMobToSpawn = 0;
+        }
+
+        EnemyMover enemy = Instantiate(enemyPrefab[whichMobToSpawn], rb.position, rb.rotation) as EnemyMover;
+        enemy.transform.forward = this.transform.forward;
+        enemyList.Add(enemy);
+    }
+
+    void PruneList() {
+        for (int i = enemyList.Count - 1; i > 0; i--) {
+            if (enemyList[i] == null)
+                enemyList.Remove(enemyList[i]);
+        }
     }
 }
