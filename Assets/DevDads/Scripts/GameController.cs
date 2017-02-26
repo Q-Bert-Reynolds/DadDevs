@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-
+    
     public SpawnerEnemy[] spawner;
 
     private static PlayerController player;
@@ -13,8 +13,7 @@ public class GameController : MonoBehaviour {
     private bool restart;
     private float deltaGametime = 0;
     public int score;
-
-    // Use this for initialization
+    
     void Start () {
         score = 0;
         gameOver = false;
@@ -68,6 +67,6 @@ public class GameController : MonoBehaviour {
 
     public void AddScore(int newScoreValue) {
         score += newScoreValue;
-        GameUIController.UpdateScore(score);
+       GameUIController.UpdateScore(score);
     }
 }

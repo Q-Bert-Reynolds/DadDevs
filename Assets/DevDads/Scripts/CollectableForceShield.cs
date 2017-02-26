@@ -3,18 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Paraphernalia.Components;
 
-public class CollectableLaser : MonoBehaviour {
-    
+public class CollectableForceShield : MonoBehaviour {
+
     private PlayerController player;
 
-	void Start () {
+    void Start() {
         if (player == null)
             player = FindObjectOfType<PlayerController>();
-	}
-	
-	void OnTriggerEnter(Collider other) {
+    }
+
+    void OnTriggerEnter(Collider other) {
         if (other.tag == "Player") {
-            player.energy = player.maxEnergy;
+            player.setForceShield(true);
+            player.deltaInvisFrames = 8;
             AudioManager.PlayVariedEffect("pickupCollectable");
             Destroy(this.gameObject);
         }

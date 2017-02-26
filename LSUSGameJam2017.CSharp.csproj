@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3F46227E-3009-78C2-FC91-1C553B3045F2}</ProjectGuid>
+    <ProjectGuid>{189B9BF7-A096-3798-0E54-58CDAD1272E2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AssemblyName>Assembly-CSharp</AssemblyName>
     <FileAlignment>512</FileAlignment>
@@ -75,82 +75,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\DevDads\Scripts\BulletController.cs" />
     <Compile Include="Assets\DevDads\Scripts\CamFollowPlayer.cs" />
-    <Compile Include="Assets\DevDads\Scripts\CollectableForceShield.cs" />
     <Compile Include="Assets\DevDads\Scripts\CollectableLaser.cs" />
     <Compile Include="Assets\DevDads\Scripts\CollectableLife.cs" />
     <Compile Include="Assets\DevDads\Scripts\EnemyController.cs" />
     <Compile Include="Assets\DevDads\Scripts\GameController.cs" />
     <Compile Include="Assets\DevDads\Scripts\GameUIController.cs" />
+    <Compile Include="Assets\DevDads\Scripts\MoveForward.cs" />
     <Compile Include="Assets\DevDads\Scripts\PlayerController.cs" />
     <Compile Include="Assets\DevDads\Scripts\RotateRandomly.cs" />
     <Compile Include="Assets\DevDads\Scripts\SpawnerEnemy.cs" />
-    <Compile Include="Assets\Paraphernalia\Attributes\ArrayAttribute.cs" />
-    <Compile Include="Assets\Paraphernalia\Attributes\EnumMaskAttribute.cs" />
-    <Compile Include="Assets\Paraphernalia\Attributes\LayerAttribute.cs" />
-    <Compile Include="Assets\Paraphernalia\Attributes\MaterialIndexAttribute.cs" />
-    <Compile Include="Assets\Paraphernalia\Attributes\ResourcePathAttribute.cs" />
-    <Compile Include="Assets\Paraphernalia\Attributes\SortingLayerAttribute.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\AudioManager.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\CameraAspect.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\CameraController.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\CameraShake.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\CameraZone.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\CellLayoutElement.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\CellLayoutGroup.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\ContinuousDamage.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\Damagable.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\Damage.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\DirectionalAnimator.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\DirectionalComponent.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\DirectionalSprite.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\DirectionalTransform.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\DontDestroyOnLoad.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\Follower.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\HealthController.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\ListLayoutGroup.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\NameSingleton.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\ParticleManager.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\PinToViewport.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\Projectile.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\ProjectileLauncher.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\RendererOrdering.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\ScaleToViewport.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\SortingLayer.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\SpawnOnDeath.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\Spawner.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\SwitchableHorizontalOrVerticalLayoutGroup.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\VerticalOrdering.cs" />
-    <Compile Include="Assets\Paraphernalia\Components\VerticalRendererOrdering.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\ArrayExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\BoundsExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\CameraExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\ColorExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\CubemapExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\GameObjectExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\IntExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\RenderTexturesExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\Rigidbody2DExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\Texture2DExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\UIExtensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\Vector2Extensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Extensions\Vector3Extensions.cs" />
-    <Compile Include="Assets\Paraphernalia\Math\Line2D.cs" />
-    <Compile Include="Assets\Paraphernalia\Math\Matrix.cs" />
-    <Compile Include="Assets\Paraphernalia\Math\Polygon.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\ColorUtils.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\CubemapUtils.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\GameObjectUtils.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\Interpolate.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\MaxRectsBinPack.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\Steering.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\TextureGenerator.cs" />
-    <Compile Include="Assets\Paraphernalia\Utils\Triangulator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\DevDads\NOTES.txt" />
-    <None Include="Assets\Paraphernalia\Shaders\FlowShader.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2015\UnityVS.CSharp.targets" />
 </Project>

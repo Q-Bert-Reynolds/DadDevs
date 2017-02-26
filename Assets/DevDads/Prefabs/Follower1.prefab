@@ -302,10 +302,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eace247e74285c947a6d2d75d67f8687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   turnSpeed: 1
   scoreValue: 10
   enemyType: 1
+  collectableLaser: {fileID: 114577247536818578, guid: 6d4f5ad1e3ca1b2468a1ee53a551dc9c,
+    type: 2}
+  collectableLife: {fileID: 114928283375341784, guid: c370f59ec4b04b84b971646d509523ec,
+    type: 2}
+  collectableForceShield: {fileID: 114002937342617486, guid: c9693889c9468bc4d86824741aab8ca1,
+    type: 2}
   timeToWaitCharge: 2
   timeToWaitShot: 1
   timeToWaitBtwnShots: 0.33

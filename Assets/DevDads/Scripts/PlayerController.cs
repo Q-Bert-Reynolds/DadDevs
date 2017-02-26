@@ -13,22 +13,42 @@ public class PlayerController : MonoBehaviour {
     public float invisFramesTime;
     public float turnSpeed = 1;
     public int lives;
-    public MoveForward shotPrefab;
+    public BulletController shotPrefab;
     public Transform turretTransform;
     public Animator robotAnimator;
     public Transform shotSpawn;
-    
+    public LineRenderer laserLineRenderer;
+    public float laserStartWidth;
+    public float laserEndWidth;
+    public float maxForceFieldTime;
+    public GameObject forceShield;
+    public string onDestroySound = "laserHit";
+
     private Vector3 targetForward;
 
     public float maxEnergy;
     public float energy;
+    private bool _forceFieldActive;
+    public bool forceFieldActive {
+        get { return _forceFieldActive; }
+        set { _forceFieldActive = value; }
+    }
     private float _deltaInvisFrames;
     public float deltaInvisFrames {
         get { return _deltaInvisFrames; }
+        set { _deltaInvisFrames = value; }
+    }
+    private Vector3 _laserPointPosition;
+    public Vector3 laserPointPosition {
+        get { return _laserPointPosition; }
+    }
+    private bool _laserPointerActive;
+    public bool laserPointerActive {
+        get { return _laserPointerActive; }
     }
     private Color originalColor;
     private int floorMask;
-    private float deltaPrimaryFireRate;
+    private bool mouseDown;
 
     private Rigidbody rb;
     public Rigidbody body {
@@ -48,20 +68,27 @@ public class PlayerController : MonoBehaviour {
         // originalColor = GetComponent<Renderer>().material.color;
         floorMask = LayerMask.GetMask("Ground");
         maxEnergy = 100;
+
+        Vector3[] initLaserPositions = new Vector3[2] { Vector3.zero, Vector3.zero };
+        laserLineRenderer.SetPositions(initLaserPositions);
+        laserLineRenderer.startWidth = laserStartWidth;
+        laserLineRenderer.endWidth = laserEndWidth;
     }
 	
 	void Update() {
-        if (Input.GetKeyDown(KeyCode.Mouse0) && Time.time > primaryFireRate) {
-            deltaPrimaryFireRate = Time.time + primaryFireRate;
-            MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+        if (Input.GetMouseButtonDown(0) && Time.time > primaryFireRate) {
+            BulletController shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as BulletController;
             shot.transform.forward = shotSpawn.transform.forward;
             AudioManager.PlayVariedEffect("heavyLaser");
         }
 
         if (deltaInvisFrames > 0) {
             _deltaInvisFrames -= Time.deltaTime;
-            if (deltaInvisFrames < 0)
+            if (deltaInvisFrames <= 0) {
                 _deltaInvisFrames = 0;
+                setForceShield(false);
+            }
+                
             float alpha = deltaInvisFrames*2;
             while (alpha > 1) alpha--;
             // GetComponent<Renderer>().material.color = 
@@ -71,6 +98,47 @@ public class PlayerController : MonoBehaviour {
             //     new Color(originalColor.r, originalColor.g, originalColor.b, 1);
         }
 
+        LookAtMouse();
+
+        drawLaserPointer();
+
+        Move();
+
+        if (forceFieldActive) {
+            forceShield.GetComponent<Rigidbody>().position = rb.position;
+        }
+    }
+
+    void drawLaserPointer() {
+        if (Input.GetMouseButtonDown(1)) {
+            mouseDown = true;
+        }
+        if (Input.GetMouseButtonUp(1))
+        {
+            mouseDown = false;
+        }
+
+        if (mouseDown && energy > 0) {
+            energy -= Time.deltaTime * 10;
+            if (energy < 0) energy = 0;
+            Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit floorHit;            
+            if (Physics.Raycast(camRay, out floorHit, 300, floorMask)) {
+                _laserPointPosition = floorHit.point;
+            }
+
+            laserLineRenderer.SetPosition(0, shotSpawn.position);
+            laserLineRenderer.SetPosition(1, _laserPointPosition);
+
+            laserLineRenderer.enabled = true;
+            _laserPointerActive = true;
+        } else {
+            laserLineRenderer.enabled = false;
+            _laserPointerActive = false;
+        }
+    }
+
+    void LookAtMouse() {
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit floorHit;
         if (Physics.Raycast(camRay, out floorHit, Mathf.Infinity, floorMask)) {
@@ -78,17 +146,10 @@ public class PlayerController : MonoBehaviour {
             playerToMouse.y = transform.position.y;
             targetForward = playerToMouse.normalized;
         }
-
-        Move();
-
     }
 
 	void Move () {
-        float moveUp = 0;
-        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y == 0) {
-            //moveUp = jumpSpeed;
-        }
-        
+        float moveUp = 0;        
         float moveHorizontal = Input.GetAxis("Horizontal") * moveSpeed;
         float moveForward = Input.GetAxis("Vertical") * moveSpeed;
 
@@ -118,7 +179,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void getHit() {
-        Debug.Log("GET HIT");
         if (this.deltaInvisFrames == 0) {
             if (this.lives > 0) {
                 this.lives -= 1;
@@ -130,6 +190,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void die() {
+        AudioManager.PlayVariedEffect(onDestroySound);
         gameObject.SetActive(false);
+    }
+
+    public void setForceShield(bool value) {
+        this.forceFieldActive = value;
+        forceShield.SetActive(value);
     }
 }

@@ -4,13 +4,16 @@ using UnityEngine;
 using Paraphernalia.Utils;
 using Paraphernalia.Components;
 
-public class EnemyMover : MonoBehaviour {
+public class EnemyController : MonoBehaviour {
     
     public float speed;
     public float turnSpeed = 1;
     private PlayerController player;
     public int scoreValue;
     public int enemyType;
+    public CollectableLaser collectableLaser;
+    public CollectableLife collectableLife;
+    public CollectableForceShield collectableForceShield;
 
     private float deltaWaitToShoot = 0;   
     private float deltaStartShot = 0;
@@ -22,7 +25,7 @@ public class EnemyMover : MonoBehaviour {
     public float timeToWaitShot;
     public float timeToWaitBtwnShots;
     public float maxShots;
-    public MoveForward shotPrefab;
+    public BulletController shotPrefab;
 
     public Transform turretTransform;
     public Animator robotAnimator;
@@ -54,13 +57,19 @@ public class EnemyMover : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "PlayerPrimaryBullet") {
+            Destroy(other.gameObject);
             Die();
         }
     }
 
     void Update() {
         if (player != null) {
-            targetForward = (player.transform.position - transform.position).normalized;
+            if (!player.laserPointerActive) {
+                targetForward = (player.transform.position - transform.position).normalized;
+            } else {
+                targetForward = (player.laserPointPosition - transform.position).normalized;
+            }
+            
 
             if (!shooting) {
                 deltaWaitToShoot += Time.deltaTime;
@@ -110,17 +119,25 @@ public class EnemyMover : MonoBehaviour {
     }
 
     public void Die() {
+        int dropRate = Random.Range(0, 100);
+        if (dropRate >= 95) {
+            Instantiate(collectableForceShield, new Vector3(rb.position.x, 1f, rb.position.z), rb.rotation);
+        } else if (dropRate < 95 && dropRate >= 90) {
+            Instantiate(collectableLaser, new Vector3(rb.position.x, 1f, rb.position.z), rb.rotation);
+        } else if (dropRate < 90 && dropRate >= 85) {
+            Instantiate(collectableLife, new Vector3(rb.position.x, 1f, rb.position.z), rb.rotation);
+        }
         gameController.AddScore(scoreValue);
         gameObject.SetActive(false);
     }
 
     void SpawnBullets(int patternNumber) {
         if (patternNumber == 0) {
-            MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+            BulletController shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as BulletController;
             shot.transform.forward = shotSpawn.transform.forward;
         } else if (patternNumber == 1) {
             for (int i = 0; i < 5; i++) {
-                MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+                BulletController shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as BulletController;
                 shot.speed = shot.speed * 0.5f;
                 Vector3 originalAngle = shot.transform.forward;
                 Quaternion spreadAngle = Quaternion.AngleAxis((i - 2)*20, new Vector3(0, 1, 0));
