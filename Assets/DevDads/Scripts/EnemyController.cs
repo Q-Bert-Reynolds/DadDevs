@@ -6,6 +6,8 @@ using Paraphernalia.Components;
 
 public class EnemyController : MonoBehaviour {
     
+    public string onDestroySound = "laserHit";
+    public string onHitParticles = "HitParticles";
     public float speed;
     public float turnSpeed = 1;
     private PlayerController player;
@@ -119,6 +121,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     public void Die() {
+        PlayEffects();
         int dropRate = Random.Range(0, 100);
         if (dropRate >= 95) {
             Instantiate(collectableForceShield, new Vector3(rb.position.x, 1f, rb.position.z), rb.rotation);
@@ -129,6 +132,11 @@ public class EnemyController : MonoBehaviour {
         }
         gameController.AddScore(scoreValue);
         gameObject.SetActive(false);
+    }
+
+    void PlayEffects () {
+        ParticleManager.Play(onHitParticles, transform.position);
+        AudioManager.PlayVariedEffect(onDestroySound);
     }
 
     void SpawnBullets(int patternNumber) {
