@@ -1,7 +1,6 @@
 TODO:
 *b = bug, *f = feature
 
-*b enemies not following laser
 *f make force shield (lasts a few seconds, player.deltaInvisFrames = forceShieldTimeUp, bullets reflect back and flip bool harmfulToPlayer)
 
 DONE:
@@ -12,6 +11,7 @@ DONE:
 /*b player no longer getting hit
 /*b only one pair of spawners are acting at a time (always new ones); unity shows old ones still active - just got rid of maxSpawnable check... this is 1000 cats
 /*b bullets not dying when coming in contact with enemies - added Destroy(other.gameObject) in enemy's check
+/*b enemies not following laser
 
 CREDITS:
 Nolan Baker
