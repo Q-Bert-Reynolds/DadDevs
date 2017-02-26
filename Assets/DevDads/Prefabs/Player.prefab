@@ -66,7 +66,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1816789897365320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -106.2, y: 0.5, z: 4.6}
+  m_LocalPosition: {x: -25.6, y: 0.5, z: 4.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4115211279456874}
@@ -146,6 +146,8 @@ MonoBehaviour:
   lives: 3
   shotPrefab: {fileID: 114965203495074728, guid: 7f180330e943b9644b6e24ebcd20ee2e,
     type: 2}
+  maxEnergy: 0
+  energy: 0
 --- !u!135 &135361203136705872
 SphereCollider:
   m_ObjectHideFlags: 1
