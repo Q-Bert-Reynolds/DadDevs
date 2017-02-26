@@ -8,6 +8,7 @@ public class MoveForward : MonoBehaviour {
 
     public float speed;
     public string onDestroySound = "laserHit";
+    public string onHitParticles = "HitParticles";
     private Transform target;
     private static PlayerController player;
     private static GameController gameController;
@@ -26,24 +27,33 @@ public class MoveForward : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+        
+
         if (harmfulToPlayer) {
             if (other.gameObject.tag == "Player" && player.deltaInvisFrames == 0) {
                 if (player.deltaInvisFrames == 0) {
                     player.getHit();
+                    PlayEffects();
                 }
                 Destroy(this.gameObject);
             }
         } else {
             if (other.gameObject.tag == "Enemy") {
+                PlayEffects();
                 Destroy(this.gameObject);
                 Destroy(other.gameObject);
             }
         }
 
         if (other.gameObject.tag == "Building") {
+            PlayEffects();
             Destroy(this.gameObject);
         }
 
+    }
+
+    void PlayEffects () {
+        ParticleManager.Play(onHitParticles, transform.position);
         AudioManager.PlayVariedEffect(onDestroySound);
     }
 
