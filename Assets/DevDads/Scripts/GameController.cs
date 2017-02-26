@@ -55,7 +55,7 @@ public class GameController : MonoBehaviour {
 
         if (restart) {
             if (Input.GetKeyDown(KeyCode.R)) {
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                SceneManager.LoadScene("Menu");
             }
         }
 

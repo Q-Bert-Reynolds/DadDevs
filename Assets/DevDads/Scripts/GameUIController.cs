@@ -25,7 +25,7 @@ public class GameUIController : MonoBehaviour {
     }
 
     public static void ShowGameOver () {
-    	instance.gameOverText.text = "Game Over - Press 'R' to Restart";
+    	instance.gameOverText.text = "Game Over - Press 'R' to Return To Menu";
     }
 
    	public static void UpdateScore(int score) {
