@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
-
+    
     public SpawnerEnemy[] spawner;
 
     private static PlayerController player;

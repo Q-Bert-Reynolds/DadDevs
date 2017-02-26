@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Paraphernalia.Components;
 
 public class CollectableLife : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class CollectableLife : MonoBehaviour {
         if (other.tag == "Player")
         {
             player.lives += 1;
+            AudioManager.PlayVariedEffect("pickupCollectable");
             Destroy(this.gameObject);
         }
     }

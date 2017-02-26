@@ -1,8 +1,6 @@
 TODO:
 *b = bug, *f = feature
 
-*f make force shield (lasts a few seconds, player.deltaInvisFrames = forceShieldTimeUp, bullets reflect back and flip bool harmfulToPlayer)
-
 DONE:
 /*b player getting hit by unknown thing, seems to be after 2nd pair of spawners enabled - enemies were tagged with player and getting hit by their own bullets
 /*b enemies in alleyway getting stuck on invisible wall
@@ -12,6 +10,7 @@ DONE:
 /*b only one pair of spawners are acting at a time (always new ones); unity shows old ones still active - just got rid of maxSpawnable check... this is 1000 cats
 /*b bullets not dying when coming in contact with enemies - added Destroy(other.gameObject) in enemy's check
 /*b enemies not following laser
+/*f make force shield (lasts a few seconds, player.deltaInvisFrames = forceShieldTimeUp, bullets reflect back and flip bool harmfulToPlayer)
 
 CREDITS:
 Nolan Baker
