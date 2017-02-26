@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Paraphernalia.Utils;
+using Paraphernalia.Components;
 
-    public class EnemyController : MonoBehaviour {
+public class EnemyMover : MonoBehaviour {
     
     public float speed;
     public float turnSpeed = 1;
@@ -58,11 +60,7 @@ using UnityEngine;
 
     void Update() {
         if (player != null) {
-            if (!player.laserPointerActive) {
-                targetForward = (player.transform.position - transform.position).normalized;
-            } else {
-                targetForward = (player.laserPointPosition - transform.position).normalized;
-            }            
+            targetForward = (player.transform.position - transform.position).normalized;
 
             if (!shooting) {
                 deltaWaitToShoot += Time.deltaTime;
@@ -75,6 +73,7 @@ using UnityEngine;
 
             } else {
                 robotAnimator.SetFloat("speed", 0);
+                rb.velocity = Vector3.zero;
                 deltaStartShot += Time.deltaTime;
 
                 if (deltaStartShot > timeToWaitShot) {
@@ -84,6 +83,7 @@ using UnityEngine;
                         SpawnBullets(enemyType);
                         shotsFired += 1;
                         deltaWaitBtwnShots -= timeToWaitBtwnShots;
+                        AudioManager.PlayVariedEffect("heavyLaser");
                     }
 
                     if (shotsFired >= maxShots) {

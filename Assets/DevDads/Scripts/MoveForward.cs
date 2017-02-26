@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Paraphernalia.Utils;
+using Paraphernalia.Components;
 
 public class MoveForward : MonoBehaviour {
 
     public float speed;
-
+    public string onDestroySound = "laserHit";
     private Transform target;
     private static PlayerController player;
     private static GameController gameController;
@@ -24,7 +26,6 @@ public class MoveForward : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log(this.tag + " hit " + other.tag);
         if (harmfulToPlayer) {
             if (other.gameObject.tag == "Player" && player.deltaInvisFrames == 0) {
                 if (player.deltaInvisFrames == 0) {
@@ -34,7 +35,6 @@ public class MoveForward : MonoBehaviour {
             }
         } else {
             if (other.gameObject.tag == "Enemy") {
-                Debug.Log("here");
                 Destroy(this.gameObject);
                 Destroy(other.gameObject);
             }
@@ -43,6 +43,8 @@ public class MoveForward : MonoBehaviour {
         if (other.gameObject.tag == "Building") {
             Destroy(this.gameObject);
         }
+
+        AudioManager.PlayVariedEffect(onDestroySound);
     }
 
     void OnBecameInvisible() {

@@ -6,10 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class GameController : MonoBehaviour {
 
-    public Text scoreText;
-    public Text livesText;
-    public Text gameOverText;
-    public Text energyText;
     public SpawnerEnemy[] spawner;
 
     private static PlayerController player;
@@ -23,18 +19,15 @@ public class GameController : MonoBehaviour {
         score = 0;
         gameOver = false;
         restart = false;
-        livesText.text = "";
-        gameOverText.text = "";
-        energyText.text = "";
-        UpdateScore();
+        GameUIController.UpdateScore(0);
         if (player == null)
             player = FindObjectOfType<PlayerController>();
     }
 
     void Update() {
-        livesText.text = "Lives: " + player.lives;
-        scoreText.text = "Score: " + score;
-        energyText.text = "Energy: " + player.energy;
+        GameUIController.UpdateLives(player.lives);
+        GameUIController.UpdateScore(score);
+        GameUIController.UpdateEnergy(player.energy);
 
         if (!gameOver) {
             deltaGametime += Time.deltaTime;
@@ -57,7 +50,7 @@ public class GameController : MonoBehaviour {
             }
         }
 
-        if (player == null) {
+        if (!player.gameObject.activeSelf) {
             gameOver = true;
         }
 
@@ -68,17 +61,13 @@ public class GameController : MonoBehaviour {
         }
 
         if (gameOver) {
-            gameOverText.text = "Game Over - Press 'R' to Restart";
+            GameUIController.ShowGameOver();
             restart = true;
         }
     }
 
     public void AddScore(int newScoreValue) {
         score += newScoreValue;
-        UpdateScore();
-    }
-
-    void UpdateScore() {
-        scoreText.text = "Score: " + score;
+        GameUIController.UpdateScore(score);
     }
 }
