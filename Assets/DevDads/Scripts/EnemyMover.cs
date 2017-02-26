@@ -73,6 +73,7 @@ public class EnemyMover : MonoBehaviour {
 
             } else {
                 robotAnimator.SetFloat("speed", 0);
+                rb.velocity = Vector3.zero;
                 deltaStartShot += Time.deltaTime;
 
                 if (deltaStartShot > timeToWaitShot) {
@@ -82,7 +83,7 @@ public class EnemyMover : MonoBehaviour {
                         SpawnBullets(enemyType);
                         shotsFired += 1;
                         deltaWaitBtwnShots -= timeToWaitBtwnShots;
-                        AudioManager.PlayEffect("heavyLaser");
+                        AudioManager.PlayVariedEffect("heavyLaser");
                     }
 
                     if (shotsFired >= maxShots) {

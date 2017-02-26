@@ -55,7 +55,7 @@ public class PlayerController : MonoBehaviour {
             deltaPrimaryFireRate = Time.time + primaryFireRate;
             MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
             shot.transform.forward = shotSpawn.transform.forward;
-            AudioManager.PlayEffect("heavyLaser");
+            AudioManager.PlayVariedEffect("heavyLaser");
         }
 
         if (deltaInvisFrames > 0) {
@@ -118,6 +118,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void getHit() {
+        Debug.Log("GET HIT");
         if (this.deltaInvisFrames == 0) {
             if (this.lives > 0) {
                 this.lives -= 1;
@@ -129,6 +130,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void die() {
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 }

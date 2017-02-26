@@ -44,7 +44,7 @@ public class MoveForward : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
-        AudioManager.PlayEffect(onDestroySound);
+        AudioManager.PlayVariedEffect(onDestroySound);
     }
 
     void OnBecameInvisible() {

@@ -37,7 +37,6 @@ GameObject:
   - component: {fileID: 4586944595098028}
   - component: {fileID: 54230340779022442}
   - component: {fileID: 135281377130001428}
-  - component: {fileID: 114685474663342168}
   - component: {fileID: 114837591412691712}
   m_Layer: 13
   m_Name: Follower
@@ -292,19 +291,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 0
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114685474663342168
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1220814287805308}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d622f0bb514e5a42aa5fca690b4314e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  direction: {x: 0, y: 0, z: 0}
 --- !u!114 &114837591412691712
 MonoBehaviour:
   m_ObjectHideFlags: 1
