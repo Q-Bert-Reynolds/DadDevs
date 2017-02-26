@@ -8,6 +8,7 @@ public class BulletController : MonoBehaviour {
 
     public float speed;
     public string onDestroySound = "laserHit";
+    public string onHitParticles = "HitParticles";
     private Transform target;
     private static PlayerController player;
     private static GameController gameController;
@@ -26,7 +27,10 @@ public class BulletController : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+        
+
         if (harmfulToPlayer) {
+
             if (other.gameObject.tag == "Player") {
                 if (player.forceFieldActive) {
                     harmfulToPlayer = false;
@@ -36,22 +40,30 @@ public class BulletController : MonoBehaviour {
                 } else {
                     if (player.deltaInvisFrames == 0) {
                         player.getHit();
-                        Destroy(this.gameObject);
-                    }                    
+                    }
+                    Destroy(this.gameObject);
+                    PlayEffects();
                 }                
             }
         } else {            
             if (other.gameObject.tag == "Enemy") {
+                PlayEffects();
                 Destroy(this.gameObject);
                 Destroy(other.gameObject);
-                AudioManager.PlayVariedEffect(onDestroySound);
+                PlayEffects();
             }
         }
 
         if (other.gameObject.tag == "Building") {
+            PlayEffects();
             Destroy(this.gameObject);
-            AudioManager.PlayVariedEffect(onDestroySound);
+            PlayEffects();
         }
+    }
+
+    void PlayEffects () {
+        ParticleManager.Play(onHitParticles, transform.position);
+        AudioManager.PlayVariedEffect(onDestroySound);
     }
 
     void OnBecameInvisible() {
