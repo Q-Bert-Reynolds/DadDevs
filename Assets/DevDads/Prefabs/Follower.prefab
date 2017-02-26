@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  turnSpeed: 1
   scoreValue: 10
   enemyType: 0
   timeToWaitCharge: 2
@@ -324,6 +325,9 @@ MonoBehaviour:
   maxShots: 3
   shotPrefab: {fileID: 114532276919567138, guid: 7b9e94956a25ece4292b35e5362b5475,
     type: 2}
+  turretTransform: {fileID: 4595015773382350}
+  robotAnimator: {fileID: 95629540300790816}
+  shotSpawn: {fileID: 4439957689873648}
 --- !u!135 &135281377130001428
 SphereCollider:
   m_ObjectHideFlags: 1

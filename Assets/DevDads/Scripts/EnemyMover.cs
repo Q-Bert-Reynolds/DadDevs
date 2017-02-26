@@ -6,6 +6,7 @@ using Paraphernalia.Utils;
     public class EnemyMover : MonoBehaviour {
     
     public float speed;
+    public float turnSpeed = 1;
     private PlayerController player;
     public int scoreValue;
     public int enemyType;
@@ -22,14 +23,16 @@ using Paraphernalia.Utils;
     public float maxShots;
     public MoveForward shotPrefab;
 
-    private Transform shotSpawn;
+    public Transform turretTransform;
+    public Animator robotAnimator;
+    public Transform shotSpawn;
     private bool shooting;
     private Rigidbody rb;
+    private Vector3 targetForward;
     
 	void Start () {
         rb = GetComponent<Rigidbody>();
         shooting = false;
-        shotSpawn = transform.GetChild(0);
 
         timeToWaitCharge = timeToWaitCharge + Random.Range(0f, 1f);
 
@@ -54,8 +57,10 @@ using Paraphernalia.Utils;
         }
     }
 
-    void FixedUpdate() {
+    void Update() {
         if (player != null) {
+            targetForward = (player.transform.position - transform.position).normalized;
+
             if (!shooting) {
                 deltaWaitToShoot += Time.deltaTime;
                 if (deltaWaitToShoot > timeToWaitCharge) {
@@ -63,9 +68,10 @@ using Paraphernalia.Utils;
                     shooting = true;
                 }
 
-                moveTowardsPlayer(player.gameObject);
+                moveTowardsPlayer();
 
             } else {
+                robotAnimator.SetFloat("speed", 0);
                 deltaStartShot += Time.deltaTime;
 
                 if (deltaStartShot > timeToWaitShot) {
@@ -85,20 +91,24 @@ using Paraphernalia.Utils;
                     }                    
                 }
             }
+            turretTransform.rotation = Quaternion.LookRotation(targetForward);
         }        
 	}
 
-    void moveTowardsPlayer(GameObject target) {
-        transform.position = Vector3.MoveTowards(
-            transform.position, 
-            target.GetComponent<Rigidbody>().position,
-            speed * Time.deltaTime
-        );
+    void moveTowardsPlayer() {
+        transform.forward = Vector3.Lerp(transform.forward, targetForward, turnSpeed * Time.deltaTime);
+
+        rb.velocity = targetForward * speed;
+        float forward = Vector3.Dot(rb.velocity, transform.forward);
+        float right = Vector3.Dot(rb.velocity, transform.right);
+        robotAnimator.SetFloat("speed", speed);
+        robotAnimator.SetFloat("forward", forward);
+        robotAnimator.SetFloat("right", right);
     }
 
     public void Die() {
         gameController.AddScore(scoreValue);
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 
     void SpawnBullets(int patternNumber) {

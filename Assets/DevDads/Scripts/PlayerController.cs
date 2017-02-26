@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float primaryFireRate;
     public float secondaryFireRate;
     public float invisFramesTime;
-    public float turnSpeed = 3;
+    public float turnSpeed = 1;
     public int lives;
     public MoveForward shotPrefab;
     public Transform turretTransform;
