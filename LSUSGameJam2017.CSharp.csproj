@@ -80,7 +80,7 @@
     <Compile Include="Assets\DevDads\Scripts\CollectableLife.cs" />
     <Compile Include="Assets\DevDads\Scripts\EnemyController.cs" />
     <Compile Include="Assets\DevDads\Scripts\GameController.cs" />
-    <Compile Include="Assets\DevDads\Scripts\LaserScript.cs" />
+    <Compile Include="Assets\DevDads\Scripts\GameUIController.cs" />
     <Compile Include="Assets\DevDads\Scripts\MoveForward.cs" />
     <Compile Include="Assets\DevDads\Scripts\PlayerController.cs" />
     <Compile Include="Assets\DevDads\Scripts\RotateRandomly.cs" />
