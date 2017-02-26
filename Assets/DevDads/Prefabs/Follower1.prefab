@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114509983872434796}
   m_Layer: 13
   m_Name: Follower1
-  m_TagString: Player
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -302,7 +302,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eace247e74285c947a6d2d75d67f8687, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 5
   turnSpeed: 1
   scoreValue: 10
   enemyType: 1

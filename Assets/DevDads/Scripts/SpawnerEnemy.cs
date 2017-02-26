@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SpawnerEnemy : MonoBehaviour {
 
-    public EnemyMover[] enemyPrefab;
+    public EnemyController[] enemyPrefab;
     public float timeToSpawnNewEnemy;
     public int maxEnemiesAliveAtOnce;
 
@@ -12,14 +12,14 @@ public class SpawnerEnemy : MonoBehaviour {
     private float deltaSpawnNewEnemy = 0;
     private Rigidbody rb;
     private Vector3 spawnPosition;
-    private List<EnemyMover> enemyList;
+    private List<EnemyController> enemyList;
 
     void Start () {
         rb = GetComponent<Rigidbody>();
         spawnPosition = new Vector3();
         originalTimeToSpawnNewEnemy = timeToSpawnNewEnemy;
         timeToSpawnNewEnemy += Random.Range(0, 2);
-        enemyList = new List<EnemyMover>();
+        enemyList = new List<EnemyController>();
 	}
 	
 	void Update () {
@@ -47,7 +47,7 @@ public class SpawnerEnemy : MonoBehaviour {
             whichMobToSpawn = 0;
         }
 
-        EnemyMover enemy = Instantiate(enemyPrefab[whichMobToSpawn], new Vector3(rb.position.x, 0.5f, rb.position.z), rb.rotation) as EnemyMover;
+        EnemyController enemy = Instantiate(enemyPrefab[whichMobToSpawn], new Vector3(rb.position.x, 0f, rb.position.z), rb.rotation) as EnemyController;
         enemy.transform.forward = this.transform.forward;
         enemyList.Add(enemy);
     }

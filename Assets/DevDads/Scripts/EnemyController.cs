@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-    public class EnemyMover : MonoBehaviour {
+    public class EnemyController : MonoBehaviour {
     
     public float speed;
     public float turnSpeed = 1;
@@ -58,7 +58,11 @@ using UnityEngine;
 
     void Update() {
         if (player != null) {
-            targetForward = (player.transform.position - transform.position).normalized;
+            if (!player.laserPointerActive) {
+                targetForward = (player.transform.position - transform.position).normalized;
+            } else {
+                targetForward = (player.laserPointPosition - transform.position).normalized;
+            }            
 
             if (!shooting) {
                 deltaWaitToShoot += Time.deltaTime;

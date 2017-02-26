@@ -24,6 +24,7 @@ public class MoveForward : MonoBehaviour {
     }
 
     void OnTriggerEnter(Collider other) {
+        Debug.Log(this.tag + " hit " + other.tag);
         if (harmfulToPlayer) {
             if (other.gameObject.tag == "Player" && player.deltaInvisFrames == 0) {
                 if (player.deltaInvisFrames == 0) {
@@ -33,6 +34,7 @@ public class MoveForward : MonoBehaviour {
             }
         } else {
             if (other.gameObject.tag == "Enemy") {
+                Debug.Log("here");
                 Destroy(this.gameObject);
                 Destroy(other.gameObject);
             }

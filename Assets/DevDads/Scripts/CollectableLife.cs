@@ -2,18 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollectableLaser : MonoBehaviour {
-    
+public class CollectableLife : MonoBehaviour {
+
     private PlayerController player;
 
-	void Start () {
+    void Start()
+    {
         if (player == null)
             player = FindObjectOfType<PlayerController>();
-	}
-	
-	void OnTriggerEnter(Collider other) {
-        if (other.tag == "Player") {
-            player.energy = player.maxEnergy;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            player.lives += 1;
             Destroy(this.gameObject);
         }
     }
