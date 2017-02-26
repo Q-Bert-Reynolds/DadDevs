@@ -54,6 +54,7 @@ public class EnemyController : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (other.gameObject.tag == "PlayerPrimaryBullet") {
+            Destroy(other.gameObject);
             Die();
         }
     }
