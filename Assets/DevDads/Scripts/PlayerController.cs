@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Paraphernalia.Components;
 
 public class PlayerController : MonoBehaviour {
     
@@ -54,6 +55,7 @@ public class PlayerController : MonoBehaviour {
             deltaPrimaryFireRate = Time.time + primaryFireRate;
             MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
             shot.transform.forward = shotSpawn.transform.forward;
+            AudioManager.PlayEffect("heavyLaser");
         }
 
         if (deltaInvisFrames > 0) {

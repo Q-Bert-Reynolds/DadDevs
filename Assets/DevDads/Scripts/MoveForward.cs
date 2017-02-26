@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Paraphernalia.Utils;
+using Paraphernalia.Components;
 
 public class MoveForward : MonoBehaviour {
 
     public float speed;
-
+    public string onDestroySound = "laserHit";
     private Transform target;
     private static PlayerController player;
     private static GameController gameController;
@@ -42,6 +43,8 @@ public class MoveForward : MonoBehaviour {
         if (other.gameObject.tag == "Building") {
             Destroy(this.gameObject);
         }
+
+        AudioManager.PlayEffect(onDestroySound);
     }
 
     void OnBecameInvisible() {

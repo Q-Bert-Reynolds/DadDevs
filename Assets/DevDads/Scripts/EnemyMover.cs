@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Paraphernalia.Utils;
+using Paraphernalia.Components;
 
-    public class EnemyMover : MonoBehaviour {
+public class EnemyMover : MonoBehaviour {
     
     public float speed;
     public float turnSpeed = 1;
@@ -81,6 +82,7 @@ using Paraphernalia.Utils;
                         SpawnBullets(enemyType);
                         shotsFired += 1;
                         deltaWaitBtwnShots -= timeToWaitBtwnShots;
+                        AudioManager.PlayEffect("heavyLaser");
                     }
 
                     if (shotsFired >= maxShots) {
