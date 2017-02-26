@@ -11,8 +11,8 @@ public class TestAnimController : MonoBehaviour {
 	}
 
 	void Update () {
-		float x = Input.GetAxis("Horizontal");
-		float y = Input.GetAxis("Vertical");
+		float x = Input.GetAxis("Horizontal") * 5;
+		float y = Input.GetAxis("Vertical") * 5;
 		Vector2 dir = new Vector2(x,y);
 		animator.SetFloat("speed", dir.normalized.magnitude);
 		animator.SetFloat("xAxis", x);
