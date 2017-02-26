@@ -54,6 +54,7 @@ public class PlayerController : MonoBehaviour {
     private int floorMask;
     private bool mouseDown;
 
+    private AudioSource sound;
     private Rigidbody rb;
     public Rigidbody body {
         get {
@@ -67,6 +68,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        sound = GetComponent<AudioSource>();
         movement = new Vector3(0, 0, 0);
         _deltaInvisFrames = 0;
         // originalColor = GetComponent<Renderer>().material.color;
@@ -129,6 +131,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (mouseDown && energy > 0) {
+            sound.enabled = true;
             energy -= Time.deltaTime * 10;
             if (energy < 0) energy = 0;
             Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -143,6 +146,7 @@ public class PlayerController : MonoBehaviour {
             laserLineRenderer.enabled = true;
             _laserPointerActive = true;
         } else {
+            sound.enabled = false;
             laserLineRenderer.enabled = false;
             _laserPointerActive = false;
         }
