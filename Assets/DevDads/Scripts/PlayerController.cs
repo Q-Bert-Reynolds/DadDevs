@@ -10,17 +10,19 @@ public class PlayerController : MonoBehaviour {
     public float primaryFireRate;
     public float secondaryFireRate;
     public float invisFramesTime;
-    public int lives;
+    public int lives;    
     public MoveForward shotPrefab;
-    private Transform shotSpawn;
 
+    private Transform shotSpawn;
+    public float maxEnergy;
+    public float energy;
     private float _deltaInvisFrames;
     public float deltaInvisFrames {
         get { return _deltaInvisFrames; }
     }
     private Color originalColor;
     private int floorMask;
-    private float deltaPrimaryFireRate = 0f;
+    private float deltaPrimaryFireRate;
 
     private Rigidbody rb;
     public Rigidbody body {
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour {
         originalColor = GetComponent<Renderer>().material.color;
         shotSpawn = transform.GetChild(0);
         floorMask = LayerMask.GetMask("Ground");
+        maxEnergy = 100;
     }
 	
 	void Update() {

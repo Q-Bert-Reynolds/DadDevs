@@ -27,12 +27,16 @@ public class SpawnerEnemy : MonoBehaviour {
 
         PruneList();
 
+        CheckSpawnNewEnemy();        
+    }
+
+    void CheckSpawnNewEnemy() {
         if (deltaSpawnNewEnemy >= timeToSpawnNewEnemy && enemyList.Count < maxEnemiesAliveAtOnce) {
             deltaSpawnNewEnemy = 0;
             timeToSpawnNewEnemy = originalTimeToSpawnNewEnemy + Random.Range(0, 2);
 
             SpawnNewEnemy();
-        }        
+        }
     }
 
     void SpawnNewEnemy() {
@@ -43,7 +47,7 @@ public class SpawnerEnemy : MonoBehaviour {
             whichMobToSpawn = 0;
         }
 
-        EnemyMover enemy = Instantiate(enemyPrefab[whichMobToSpawn], rb.position, rb.rotation) as EnemyMover;
+        EnemyMover enemy = Instantiate(enemyPrefab[whichMobToSpawn], new Vector3(rb.position.x, 0.5f, rb.position.z), rb.rotation) as EnemyMover;
         enemy.transform.forward = this.transform.forward;
         enemyList.Add(enemy);
     }
