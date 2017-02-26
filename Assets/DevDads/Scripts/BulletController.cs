@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Paraphernalia.Utils;
-//using Paraphernalia.Components;
+using Paraphernalia.Utils;
+using Paraphernalia.Components;
 
-public class MoveForward : MonoBehaviour {
+public class BulletController : MonoBehaviour {
 
     public float speed;
     public string onDestroySound = "laserHit";
@@ -27,24 +27,31 @@ public class MoveForward : MonoBehaviour {
 
     void OnTriggerEnter(Collider other) {
         if (harmfulToPlayer) {
-            if (other.gameObject.tag == "Player" && player.deltaInvisFrames == 0) {
-                if (player.deltaInvisFrames == 0) {
-                    player.getHit();
-                }
-                Destroy(this.gameObject);
+            if (other.gameObject.tag == "Player") {
+                if (player.forceFieldActive) {
+                    harmfulToPlayer = false;
+                    gameObject.tag = "PlayerPrimaryBullet";
+                    gameObject.layer = LayerMask.NameToLayer("PlayerBullet");
+                    rb.velocity = -rb.transform.forward * speed;
+                } else {
+                    if (player.deltaInvisFrames == 0) {
+                        player.getHit();
+                    }
+                    Destroy(this.gameObject);
+                }                
             }
-        } else {
+        } else {            
             if (other.gameObject.tag == "Enemy") {
                 Destroy(this.gameObject);
                 Destroy(other.gameObject);
+                AudioManager.PlayVariedEffect(onDestroySound);
             }
         }
 
         if (other.gameObject.tag == "Building") {
             Destroy(this.gameObject);
+            AudioManager.PlayVariedEffect(onDestroySound);
         }
-
-        //AudioManager.PlayVariedEffect(onDestroySound);
     }
 
     void OnBecameInvisible() {

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using Paraphernalia.Components;
+using Paraphernalia.Components;
 
 public class PlayerController : MonoBehaviour {
     
@@ -13,21 +13,30 @@ public class PlayerController : MonoBehaviour {
     public float invisFramesTime;
     public float turnSpeed = 1;
     public int lives;
-    public MoveForward shotPrefab;
+    public BulletController shotPrefab;
     public Transform turretTransform;
     public Animator robotAnimator;
     public Transform shotSpawn;
     public LineRenderer laserLineRenderer;
     public float laserStartWidth;
     public float laserEndWidth;
-    
+    public float maxForceFieldTime;
+    public GameObject forceShield;
+    public string onDestroySound = "laserHit";
+
     private Vector3 targetForward;
 
     public float maxEnergy;
     public float energy;
+    private bool _forceFieldActive;
+    public bool forceFieldActive {
+        get { return _forceFieldActive; }
+        set { _forceFieldActive = value; }
+    }
     private float _deltaInvisFrames;
     public float deltaInvisFrames {
         get { return _deltaInvisFrames; }
+        set { _deltaInvisFrames = value; }
     }
     private Vector3 _laserPointPosition;
     public Vector3 laserPointPosition {
@@ -68,15 +77,18 @@ public class PlayerController : MonoBehaviour {
 	
 	void Update() {
         if (Input.GetMouseButtonDown(0) && Time.time > primaryFireRate) {
-            MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
+            BulletController shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as BulletController;
             shot.transform.forward = shotSpawn.transform.forward;
-            //AudioManager.PlayVariedEffect("heavyLaser");
+            AudioManager.PlayVariedEffect("heavyLaser");
         }
 
         if (deltaInvisFrames > 0) {
             _deltaInvisFrames -= Time.deltaTime;
-            if (deltaInvisFrames < 0)
+            if (deltaInvisFrames <= 0) {
                 _deltaInvisFrames = 0;
+                setForceShield(false);
+            }
+                
             float alpha = deltaInvisFrames*2;
             while (alpha > 1) alpha--;
             // GetComponent<Renderer>().material.color = 
@@ -92,6 +104,9 @@ public class PlayerController : MonoBehaviour {
 
         Move();
 
+        if (forceFieldActive) {
+            forceShield.GetComponent<Rigidbody>().position = rb.position;
+        }
     }
 
     void drawLaserPointer() {
@@ -175,6 +190,12 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void die() {
+        AudioManager.PlayVariedEffect(onDestroySound);
         gameObject.SetActive(false);
+    }
+
+    public void setForceShield(bool value) {
+        this.forceFieldActive = value;
+        forceShield.SetActive(value);
     }
 }
