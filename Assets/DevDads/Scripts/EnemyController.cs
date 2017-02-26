@@ -61,7 +61,12 @@ public class EnemyController : MonoBehaviour {
 
     void Update() {
         if (player != null) {
-            targetForward = (player.transform.position - transform.position).normalized;
+            if (!player.laserPointerActive) {
+                targetForward = (player.transform.position - transform.position).normalized;
+            } else {
+                targetForward = (player.laserPointPosition - transform.position).normalized;
+            }
+            
 
             if (!shooting) {
                 deltaWaitToShoot += Time.deltaTime;
