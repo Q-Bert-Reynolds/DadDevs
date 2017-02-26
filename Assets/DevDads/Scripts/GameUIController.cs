@@ -37,7 +37,7 @@ public class GameUIController : MonoBehaviour {
     }
 
    	public static void UpdateEnergy(float energy) {
-        instance.energyText.text = "Energy: " + energy;
+        instance.energyText.text = "Energy: " + (int)energy;
     }
     
 }
