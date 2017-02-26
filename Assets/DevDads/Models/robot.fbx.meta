@@ -27,6 +27,8 @@ ModelImporter:
     100038: Root
     100040: upperLegLeft
     100042: upperLegRight
+    100044: Look
+    100046: Platform
     400000: Body
     400002: Body_end
     400004: Camera
@@ -49,7 +51,12 @@ ModelImporter:
     400038: Root
     400040: upperLegLeft
     400042: upperLegRight
+    400044: Look
+    400046: Platform
+    2300000: Platform
+    3300000: Platform
     4300000: Robot
+    4300002: Platform
     7400000: RobotBones|Idle
     7400002: RobotBones|Walk
     7400004: Robot|Walk
@@ -78,6 +85,7 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths:
+    - RobotBones/Root/Body/Look
     - RobotBones/Root/Body
     clipAnimations:
     - serializedVersion: 16
@@ -285,7 +293,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 100
+    globalScale: 50
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
