@@ -19,15 +19,15 @@ public class GameController : MonoBehaviour {
         score = 0;
         gameOver = false;
         restart = false;
-        GameUIController.UpdateScore(0);
+        //GameUIController.UpdateScore(0);
         if (player == null)
             player = FindObjectOfType<PlayerController>();
     }
 
     void Update() {
-        GameUIController.UpdateLives(player.lives);
-        GameUIController.UpdateScore(score);
-        GameUIController.UpdateEnergy(player.energy);
+        //GameUIController.UpdateLives(player.lives);
+        //GameUIController.UpdateScore(score);
+        //GameUIController.UpdateEnergy(player.energy);
 
         if (!gameOver) {
             deltaGametime += Time.deltaTime;
@@ -61,13 +61,13 @@ public class GameController : MonoBehaviour {
         }
 
         if (gameOver) {
-            GameUIController.ShowGameOver();
+            //GameUIController.ShowGameOver();
             restart = true;
         }
     }
 
     public void AddScore(int newScoreValue) {
         score += newScoreValue;
-        GameUIController.UpdateScore(score);
+       //GameUIController.UpdateScore(score);
     }
 }

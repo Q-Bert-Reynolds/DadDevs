@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Paraphernalia.Components;
+//using Paraphernalia.Components;
 
 public class PlayerController : MonoBehaviour {
     
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && Time.time > primaryFireRate) {
             MoveForward shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as MoveForward;
             shot.transform.forward = shotSpawn.transform.forward;
-            AudioManager.PlayVariedEffect("heavyLaser");
+            //AudioManager.PlayVariedEffect("heavyLaser");
         }
 
         if (deltaInvisFrames > 0) {
@@ -164,7 +164,6 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void getHit() {
-        Debug.Log("GET HIT");
         if (this.deltaInvisFrames == 0) {
             if (this.lives > 0) {
                 this.lives -= 1;

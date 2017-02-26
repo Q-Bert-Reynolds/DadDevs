@@ -1,8 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Paraphernalia.Utils;
-using Paraphernalia.Components;
+//using Paraphernalia.Utils;
+//using Paraphernalia.Components;
 
 public class MoveForward : MonoBehaviour {
 
@@ -44,7 +44,7 @@ public class MoveForward : MonoBehaviour {
             Destroy(this.gameObject);
         }
 
-        AudioManager.PlayVariedEffect(onDestroySound);
+        //AudioManager.PlayVariedEffect(onDestroySound);
     }
 
     void OnBecameInvisible() {
