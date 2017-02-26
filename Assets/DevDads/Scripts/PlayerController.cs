@@ -10,10 +10,15 @@ public class PlayerController : MonoBehaviour {
     public float primaryFireRate;
     public float secondaryFireRate;
     public float invisFramesTime;
-    public int lives;    
+    public float turnSpeed = 1;
+    public int lives;
     public MoveForward shotPrefab;
+    public Transform turretTransform;
+    public Animator robotAnimator;
+    public Transform shotSpawn;
+    
+    private Vector3 targetForward;
 
-    private Transform shotSpawn;
     public float maxEnergy;
     public float energy;
     private float _deltaInvisFrames;
@@ -39,8 +44,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         movement = new Vector3(0, 0, 0);
         _deltaInvisFrames = 0;
-        originalColor = GetComponent<Renderer>().material.color;
-        shotSpawn = transform.GetChild(0);
+        // originalColor = GetComponent<Renderer>().material.color;
         floorMask = LayerMask.GetMask("Ground");
         maxEnergy = 100;
     }
@@ -58,58 +62,57 @@ public class PlayerController : MonoBehaviour {
                 _deltaInvisFrames = 0;
             float alpha = deltaInvisFrames*2;
             while (alpha > 1) alpha--;
-            GetComponent<Renderer>().material.color = 
-                new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            // GetComponent<Renderer>().material.color = 
+            //     new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
         } else {
-            GetComponent<Renderer>().material.color = 
-                new Color(originalColor.r, originalColor.g, originalColor.b, 1);
+            // GetComponent<Renderer>().material.color = 
+            //     new Color(originalColor.r, originalColor.g, originalColor.b, 1);
         }
 
-        // Create a ray from the mouse cursor on screen in the direction of the camera.
         Ray camRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        // Create a RaycastHit variable to store information about what was hit by the ray.
         RaycastHit floorHit;
-        // Perform the raycast and if it hits something on the floor layer...
         if (Physics.Raycast(camRay, out floorHit, Mathf.Infinity, floorMask)) {
-            // Create a vector from the player to the point on the floor the raycast from the mouse hit.
             Vector3 playerToMouse = floorHit.point - transform.position;
-
-            // Ensure the vector is entirely along the floor plane.
-            playerToMouse.y = 0f;
-
-            // Create a quaternion (rotation) based on looking down the vector from the player to the mouse.
-            Quaternion newRotation = Quaternion.LookRotation(playerToMouse);
-
-            // Set the player's rotation to this new rotation.
-            rb.MoveRotation(newRotation);
+            playerToMouse.y = transform.position.y;
+            targetForward = playerToMouse.normalized;
         }
+
+        Move();
 
     }
 
-	void FixedUpdate () {
+	void Move () {
         float moveUp = 0;
         if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y == 0) {
             //moveUp = jumpSpeed;
         }
         
         float moveHorizontal = Input.GetAxis("Horizontal") * moveSpeed;
-        float moveVertical = Input.GetAxis("Vertical") * moveSpeed;
+        float moveForward = Input.GetAxis("Vertical") * moveSpeed;
 
         if (moveHorizontal > maxSpeed) moveHorizontal = maxSpeed;
         if (moveHorizontal < -maxSpeed) moveHorizontal = -maxSpeed;
-        if (moveVertical > maxSpeed) moveVertical = maxSpeed;
-        if (moveVertical < -maxSpeed) moveVertical = -maxSpeed;
+        if (moveForward > maxSpeed) moveForward = maxSpeed;
+        if (moveForward < -maxSpeed) moveForward = -maxSpeed;
 
-        movement = new Vector3(moveHorizontal, moveUp, moveVertical);
+        movement = new Vector3(moveHorizontal, moveUp, moveForward);
 
-        if (moveHorizontal == 0 && moveVertical == 0) {
+        if (moveHorizontal == 0 && moveForward == 0) {
             body.velocity = movement * slowDownSpeed;
         } else {
             body.velocity = movement * moveSpeed;
+            transform.forward = Vector3.Lerp(transform.forward, targetForward, turnSpeed * Time.deltaTime);
         }
         
-        
-        
+        Vector3 dir = new Vector3(moveHorizontal, 0, moveForward);
+        float speed = dir.normalized.magnitude;
+        float forward = Vector3.Dot(dir, transform.forward);
+        float right = Vector3.Dot(dir, transform.right);
+        robotAnimator.SetFloat("speed", speed);
+        robotAnimator.SetFloat("forward", forward);
+        robotAnimator.SetFloat("right", right);
+
+        turretTransform.rotation = Quaternion.LookRotation(targetForward);  
     }
 
     public void getHit() {
@@ -125,9 +128,5 @@ public class PlayerController : MonoBehaviour {
 
     private void die() {
         Destroy(this.gameObject);
-    }
-
-    float AngleBetweenTwoPoints(Vector3 a, Vector3 b) {
-        return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
     }
 }
