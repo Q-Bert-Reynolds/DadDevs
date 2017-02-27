@@ -87,7 +87,7 @@ public class PlayerController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0) && Time.time > primaryFireRate) {
             BulletController shot = Instantiate(shotPrefab, shotSpawn.position, shotSpawn.rotation) as BulletController;
             shot.transform.forward = shotSpawn.transform.forward;
-            AudioManager.PlayVariedEffect("heavyLaser");
+            AudioManager.PlayEffect("heavyLaser", null, 0.33f, 1);
         }
 
         if (deltaInvisFrames > 0) {
